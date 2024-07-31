@@ -1460,12 +1460,7 @@ export default function Home() {
                   <div class="ant-drawer-title">
                     <div class="items-center gap-4 flex">
                       <div>
-                        <button type="button" onClick={clicked} class="ant-btn ant-btn-primary">
-                          <div class="flex items-center gap-1">
-                            <div>Connect</div>
-                          <div class="hidden-against-adblock sm:block">Wallet</div>
-                          </div>
-                        </button>
+                       <ConnectButton />
                       </div>
                     </div>
                   </div>
