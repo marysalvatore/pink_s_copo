@@ -1,0 +1,27 @@
+.Pre {
+    position: fixed;
+    z-index: 500;
+    width: 100%;
+    box-shadow: 1px 1px 1px black;
+    padding: 25px;
+    padding-top: 5%;
+    box-sizing: border-box;
+    transition: all 0.3s ease-out;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    background: #404140;
+    /* max-height: 600px; */
+}
+
+.p {
+ margin-top: 1em;
+ color: white
+}
+.pad {
+    padding-top: 15%;
+}
+.d {
+
+
+}

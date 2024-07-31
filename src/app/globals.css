@@ -1,0 +1,232 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0,0,0;
+  --background-start-rgb: 248, 250, 252, 1;
+  --background-end-rgb: 248, 250, 252, 1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 0,0,0;
+    --background-start-rgb: 248, 250, 252, 1;
+    --background-end-rgb: 248, 250, 252, 1;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+.ant-btn-primary {
+  color: #fff;
+  border-color: #f95192 !important;
+  background: #f95192 !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, .12);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, .045);
+}
+.ant-btn, .ant-btn:active, .ant-btn:focus {
+  outline: 0;
+}
+
+.ant-btn {
+  line-height: 1.5715;
+  position: relative;
+  display: inline-block;
+  font-weight: 400;
+  white-space: nowrap;
+  text-align: center;
+  cursor: pointer;
+  transition: all .3s cubic-bezier(.645,.045,.355,1);
+  user-select: none;
+  touch-action: manipulation;
+  height: 32px;
+  padding: 4px 15px;
+  font-size: 14px;
+  border-radius: 2px;
+  border: 1px solid #d9d9d9;
+}
+
+.animation-fly-wrapper {
+  animation-name: fly;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+}
+
+.homepage-stats {
+  transition: all .25s ease-in-out;
+  will-change: transform;
+  transform: perspective(1000px) rotateX(4deg) rotateY(-16deg) rotate(4deg);
+  box-shadow: 24px 16px 64px 0 rgba(0, 0, 0, .04);
+  width: 100%;
+  border-radius: .125rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+@keyframes fly {
+  0% {
+    transform: translate(0);
+  }
+  50% {
+      transform: translate(-5px, 5px);
+  }
+  100% {
+      transform: translate(0);
+  }
+}
+
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(.4,0,.2,1);
+  transition-duration: .15s;
+}
+.capitalize {
+  text-transform: capitalize;
+}
+.capitalize:hover {
+  --tw-text-opacity: 1;
+  color: rgb(249 81 146 / var(--tw-text-opacity));
+}
+.place-content-center {
+  place-content: center;
+}
+.text-brand {
+  color: #f95192
+}
+.gap-2 {
+  gap: 0.5rem;
+}
+.gap-2:hover {
+  --tw-text-opacity: 1;
+  color: rgb(249 81 146 / var(--tw-text-opacity));
+}
+.border-b {
+  border-bottom-width: 1px;
+}
+.duration-300 {
+  transition-duration: .3s;
+}
+.sticky-sidebar {
+  top: 0;
+}
+.hidden-against-adblock {
+  display: none;
+}
+.site-max-width {
+  max-width: 1920px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ant-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  pointer-events: none;
+}
+.ant-drawer-right>.ant-drawer-content-wrapper {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: -6px 0 16px -8px rgba(0, 0, 0, .08), -9px 0 28px 0 rgba(0, 0, 0, .05), -12px 0 48px 16px rgba(0, 0, 0, .03);
+}
+.ant-drawer-content-wrapper {
+  position: absolute;
+  z-index: 1000;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  transition-delay: 0s;
+  transition-property: all;
+}
+
+
+.ant-drawer-mask {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, .45);
+  pointer-events: auto;
+}
+
+.ant-drawer-content {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: #fff;
+  pointer-events: auto;
+}
+
+.ant-drawer-wrapper-body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+.ant-drawer-header {
+  display: flex;
+  flex: 0;
+  align-items: center;
+  padding: 16px 24px;
+  font-size: 16px;
+  line-height: 22px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+
+.ant-drawer-body {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  padding: 24px;
+  overflow: auto;
+}
+
+
+.ant-divider-horizontal {
+  display: flex;
+  clear: both;
+  width: 100%;
+  min-width: 100%;
+  margin: 24px 0;
+}
+
+
+.ant-divider-horizontal {
+  display: flex;
+  clear: both;
+  width: 100%;
+  min-width: 100%;
+  margin: 24px 0;
+}
+
+.hidden-against-adblock {
+  display: none;
+}
+.ant-drawer-content-wrapper-hidden {
+  display: none;
+}
+.border-b {
+  border-bottom: 1px solid rgb(230, 230, 230) !important;
+}
+.border-dashed {
+  border-style: dashed;
+}

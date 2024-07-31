@@ -1,0 +1,43 @@
+.Modal {
+    position: fixed;
+    z-index: 500;
+    background-image: linear-gradient(to right,#252424, #000000);
+    width: 90%;
+    border: 1px solid rgb(54, 53, 53);
+    box-shadow: 1px 1px 1px rgb(48, 47, 47);
+    padding: 25px;
+    left: 15%;
+    top: 15%;
+    box-sizing: border-box;
+    border-radius: 20px ;
+    transition: all 0.3s ease-out;
+    /* min-height: 40vh; */
+    max-height: 500px;
+    overflow-y: auto;
+}
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .Modal {
+    width: 90%;
+    left: 5%;
+  }
+}
+.img_icons1{
+    height: 1vh;
+    width: 20px !important;
+}
+
+.ModalHeader{
+    position: absolute;
+    width: 70%;
+    border-bottom: '1px solid #dcdcdc';
+    padding-bottom: '.5em';
+}
+
+@media (min-width: 600px) {
+    .Modal {
+        width: 500px;
+        left: calc(50% - 250px);
+
+    }
+}

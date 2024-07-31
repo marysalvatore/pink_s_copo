@@ -1,0 +1,41 @@
+.upCol {
+  border: 1px solid red;
+  border-radius: 20px;
+  min-height: 10vh;
+  display: flex;
+}
+
+.upCol2{
+  border: 1px solid red;
+  border-radius: 20px;
+  min-height: 10vh;
+  display: flex;
+  padding: 15px;
+}
+
+.downCol{
+  border: 1px solid black;
+  border-radius: 20px;
+  min-height: 12vh;
+  margin-top: 20px !important;
+  padding: 15px;
+}
+
+.Loader{
+  margin-top: 14px
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (min-width: 600px) {
+  .Loader{
+    margin-top: 0px
+  }
+}
