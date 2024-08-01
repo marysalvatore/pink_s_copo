@@ -150,8 +150,8 @@ const testnets_chains = [{
 const metadata = {
   name: 'Pinksale App',
   description: 'The Launchpad Protocol for Everyone!',
-  url: 'http://localhost:3000/', // origin must match your domain & subdomain
-  icons: ['http://localhost:3000/icon.ico']
+  url: 'https://pinksellapp.site', // origin must match your domain & subdomain
+  icons: ['https://pinksellapp.site/icon.ico']
 }
 
 
