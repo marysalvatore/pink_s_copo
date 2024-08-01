@@ -169,8 +169,18 @@ createWeb3Modal({
   ethersConfig: defaultConfig({ metadata }),
   chains: mainnet_chains,
   projectId,
-  enableAnalytics: true // Optional - defaults to your Cloud configuration
+  enableAnalytics: true,// Optional - defaults to your Cloud configuration
+  featuredWalletIds: [
+      '4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0',
+      'c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96',
+      'a797aa35c0fadbfc1a53e7f675162ed5226968b44a19ee3d24385c64d1d3c393'
+  ],
+  allowUnsupportedChain: true
 })
+
+// includeWalletIds: [
+
+// ]
 
 export default function Home() {
   const router = useRouter();
@@ -424,19 +434,10 @@ export default function Home() {
 
         await window.ethereum.request({
           method: 'wallet_switchEthereumChain',
-          params: [{ chainId: '0x1' }],
+          params: [{ chainId: '0xa86a' }],
         });
         window.location.reload()
       } else if(chainId === 43114){
-
-        await window.ethereum.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId: '0xa86a' }],
-        });
-
-        window.location.reload()
-
-      } else if(chainId === 137){
 
         await window.ethereum.request({
           method: 'wallet_switchEthereumChain',
@@ -445,11 +446,20 @@ export default function Home() {
 
         window.location.reload()
 
-      } else if(chainId === 56){
+      } else if(chainId === 137){
 
         await window.ethereum.request({
           method: 'wallet_switchEthereumChain',
           params: [{ chainId: '0x38' }],
+        });
+
+        window.location.reload()
+
+      } else if(chainId === 56){
+
+        await window.ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x1' }],
         });
 
         window.location.reload()
@@ -744,11 +754,12 @@ export default function Home() {
           </div>
           <div className="flex-1 block md:hidden-against-adblock text-right">
             <div className="flex gap-2 sm:gap-4 items-center justify-end"><div>
-              <a href="#" onClick={clicked}>
+              {/* <a href="#" onClick={clicked}>
                 <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                   <path d="M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a8.2 8.2 0 0 0 11.6 0l43.6-43.5a8.2 8.2 0 0 0 0-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z"></path>
                 </svg>
-              </a>
+              </a> */}
+              <ConnectButton type={'search'} />
             </div>
             <a href="https://www.dexview.com/" className="p-3 rounded-md border flex dark:border-neutral-300" target="_blank" rel="nofollow noreferrer">
               <Image src={dexview} height={20} width={20} alt="Dexview" className="w-[20px] h-[20px]" />
@@ -756,7 +767,7 @@ export default function Home() {
             </a>
           <div>
           <div>
-            <ConnectButton />
+            <ConnectButton type={'connect'} />
           </div>
         </div>
         </div>
@@ -910,7 +921,14 @@ export default function Home() {
                               <h1 class="text-2xl md:text-3xl lg:text-3xl xl:text-4xl font-semibold leading-relaxed">The Launchpad Protocol for Everyone</h1>
                               <p class="leading-relaxed pt-6">PinkSale helps everyone to create their own tokens and token sales in few seconds.</p>
                               <p class="leading-relaxed pb-4">Tokens created on PinkSale will be verified and published on explorer websites.</p>
-                              <div class="pt-4 flex gap-4 items-center justify-center md:justify-start"><a href="/launchpad/create"><button onClick={clicked} type="button" class="ant-btn ant-btn-primary"><span>Create now</span></button></a><a href="https://docs.pinksale.finance" class="hover:text-brand underline" target="_blank" rel="nofollow noreferrer">Learn more</a></div>
+                              <div class="pt-4 flex gap-4 items-center justify-center md:justify-start">
+                                {/* <a href="/launchpad/create">
+                                <button onClick={clicked} type="button" class="ant-btn ant-btn-primary"><span>Create now</span></button>
+                                </a> */}
+
+                                <ConnectButton type={'create'} />
+
+                                <a href="https://docs.pinksale.finance" class="hover:text-brand underline" target="_blank" rel="nofollow noreferrer">Learn more</a></div>
                               </div>
                           </section>
 
@@ -1460,7 +1478,7 @@ export default function Home() {
                   <div class="ant-drawer-title">
                     <div class="items-center gap-4 flex">
                       <div>
-                       <ConnectButton />
+                       <ConnectButton type={'create'} />
                       </div>
                     </div>
                   </div>
