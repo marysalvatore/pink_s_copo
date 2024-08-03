@@ -1481,7 +1481,7 @@ export default function Home() {
                   <div class="ant-drawer-title">
                     <div class="items-center gap-4 flex">
                       <div>
-                       <ConnectButton type={'create'} />
+                       <ConnectButton type={'connect'} />
                       </div>
                     </div>
                   </div>
