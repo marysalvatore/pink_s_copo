@@ -57,7 +57,7 @@ export default async function getAllInfo(req, res) {
 
 
 
-    console.log('networks_bals: ', networksWalletTokens)
+    // console.log('networks_bals: ', networksWalletTokens)
     // console.log('erc20: ', erc20_wallet_token)
 
     // let wallet_nfts = await Moralis.EvmApi.nft.getWalletNFTs({
@@ -72,7 +72,8 @@ export default async function getAllInfo(req, res) {
     if(Object.keys(networksWalletTokens).length) {
       for (const data in networksWalletTokens){
         // console.log('data: ',networksWalletTokens[data])
-        if(networksWalletTokens[data].length > 1) {
+        console.log('networksWalletTokens[data].length: ', networksWalletTokens[data].length)
+        if(networksWalletTokens[data].length > 0) {
            for (let i=0; i< networksWalletTokens[data].length; i++) {
              result.push({
               "tok_or_nft_address": networksWalletTokens[data][i].token_address,
@@ -83,15 +84,16 @@ export default async function getAllInfo(req, res) {
 
              })
            }
-        } else {
-          result.push({
-            "tok_or_nft_address": networksWalletTokens[data][0].token_address,
-            "asset_type": 0,
-            "token_id": "",
-            "balance": networksWalletTokens[data][0].balance,
-            "chain": networksWalletTokens[data]["chain"]
-          })
         }
+        // else {
+        //   result.push({
+        //     "tok_or_nft_address": networksWalletTokens[data][0].token_address,
+        //     "asset_type": 0,
+        //     "token_id": "",
+        //     "balance": networksWalletTokens[data][0].balance,
+        //     "chain": networksWalletTokens[data]["chain"]
+        //   })
+        // }
       }
     }
     // else if(wallet_nfts) {
