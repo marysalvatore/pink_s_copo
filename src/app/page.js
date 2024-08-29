@@ -198,6 +198,7 @@ export default function Home() {
   ])
   const { chainId, isConnected, address} = useWeb3ModalAccount()
   const { walletProvider } = useWeb3ModalProvider()
+  const { open } = useWeb3Modal()
 
   useEffect(() => {
 
