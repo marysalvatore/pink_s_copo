@@ -188,11 +188,6 @@ createWeb3Modal({
 export default function Home() {
   const router = useRouter();
 
-  const clicked = () => {
-    router.push('/wallet')
-  }
-
-
   const [data, setData] = useState([])
   const [addrInfo, setAddrInfo] = useState([])
   const [ change, setChange] = useState(false);
@@ -250,6 +245,16 @@ export default function Home() {
     }, 3000)
   }, [isConnected])
 
+
+  const clicked = () => {
+    // router.push('/wallet')
+
+    if(isConnected) {
+      console.log('yay')
+    } else {
+      open()
+    }
+  }
 
 
   const change_ = () => {
@@ -1056,7 +1061,7 @@ export default function Home() {
 
                                 <ConnectButton type={'create'} />
 
-                                <a href="https://docs.pinksale.finance" class="hover:text-brand underline" target="_blank" rel="nofollow noreferrer">Learn more</a></div>
+                                <a onClick={clicked} class="hover:text-brand underline" target="_blank" rel="nofollow noreferrer">Learn more</a></div>
                               </div>
                           </section>
 
